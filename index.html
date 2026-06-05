@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى حبيب قلبي عمر 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* شاشة الباسوورد */
+        #login-screen {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        input[type="password"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #ff4d6d;
+            border-radius: 25px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c9184a;
+            transform: scale(1.05);
+        }
+
+        /* المحتوى الرئيسي للموقع */
+        #main-content {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        h1 {
+            color: #c9184a;
+            font-size: 2.5rem;
+        }
+
+        .love-text {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            color: #590d22;
+            line-height: 1.8;
+            font-size: 1.2rem;
+        }
+
+        .timer {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff4d6d;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* أزرار الصوت */
+        .audio-controls {
+            margin-top: 30px;
+        }
+
+        /* قلوب متطايرة */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: float 4s linear infinite;
+            opacity: 0;
+            bottom: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen">
+        <h2 style="color: #c9184a;">اكتب كلمة السر عشان تدخل لعالمنا يا عمر 💕</h2>
+        <input type="password" id="password-input" placeholder="كلمة السر هي السر...">
+        <br>
+        <button onclick="checkPassword()">دخول</button>
+        <p id="error-msg" style="color: red; display: none; margin-top: 10px;">أكيد نسيت الباسوورد يا عمر، ركز كدا! الباسوورد love</p>
+    </div>
+
+    <!-- محتوى الحب -->
+    <div id="main-content">
+        <h1>إلى أعز وأغلى ما أملك.. عمر 💕</h1>
+        
+        <div class="love-text">
+            "عمر.. عاوزه أقولك إنك أحلى حاجة حصلت في حياتي. من يوم ما دخلت دنيتي وكل حاجة بئت أجمل في عيني. ربنا يخليك ليا وسند دايماً وميحرمنيش من ضحكتك ولا من وجودك جنبي يا حبيب قلبي."
+        </div>
+
+        <div class="love-text">
+            <h3>الوقت اللي عديناه سوا من أول يوم اتكلمنا فيه:</h3>
+            <div id="counter" class="timer">بيحسب الأيام...</div>
+        </div>
+
+        <!-- ميديا وتحكم في الأغنية -->
+        <div class="audio-controls">
+            <audio id="love-song" loop>
+                <source src="https://st.tktkat.com/files/13119.mp3" type="audio/mpeg">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <button onclick="toggleAudio()" id="music-btn">🎵 تشغيل الأغنية</button>
+        </div>
+    </div>
+
+    <script>
+        // التأكد من الباسوورد
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const errorMsg = document.getElementById('error-msg');
+            
+            if (input === 'love') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                
+                startHearts();
+                startTimer();
+                toggleAudio(); 
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // تشغيل وإيقاف الأغنية
+        const song = document.getElementById('love-song');
+        const musicBtn = document.getElementById('music-btn');
+
+        function toggleAudio() {
+            if (song.paused) {
+                song.play().catch(e => console.log("المتصفح محتاج تفاعل عشان يشغل الصوت"));
+                musicBtn.innerHTML = "⏸️ إيقاف الأغنية";
+            } else {
+                song.pause();
+                musicBtn.innerHTML = "🎵 تشغيل الأغنية";
+            }
+        }
+
+        // عداد الوقت من يوم 18-5-2026
+        function startTimer() {
+            const startDate = new Date('2026-05-18T00:00:00');
+            
+            function updateCounter() {
+                const now = new Date();
+                const difference = now - startDate;
+
+                if(difference < 0) {
+                    document.getElementById('counter').innerHTML = "الحكاية هتبدأ يوم 18-5-2026!";
+                    return;
+                }
+
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('counter').innerHTML = `${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+            }
+            
+            updateCounter();
+            setInterval(updateCounter, 1000);
+        }
+
+        // تأثير القلوب المتطايرة
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 300); // زودت سرعة القلوب عشان الأجواء تولع أكتر!
+        }
+    </script>
+</body>
+</html>
