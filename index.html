@@ -17,38 +17,42 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* شاشة الباسوورد */
         #login-screen {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            transition: all 0.5s ease;
-            z-index: 10;
+            z-index: 100;
+            max-width: 90%;
+            width: 400px;
         }
 
         input[type="password"] {
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 16px;
             border: 2px solid #ff4d6d;
             border-radius: 25px;
             outline: none;
             text-align: center;
             margin-bottom: 20px;
+            width: 80%;
         }
 
         button {
             background-color: #ff4d6d;
             color: white;
             border: none;
-            padding: 10px 30px;
+            padding: 12px 35px;
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
             transition: 0.3s;
+            font-weight: bold;
         }
 
         button:hover {
@@ -61,17 +65,20 @@
             display: none;
             text-align: center;
             max-width: 600px;
+            width: 90%;
             padding: 20px;
-            animation: fadeIn 1.5s ease;
+            z-index: 10;
         }
 
         h1 {
             color: #c9184a;
-            font-size: 2.5rem;
+            font-size: 2.3rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .love-text {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             padding: 25px;
             border-radius: 15px;
             margin: 20px 0;
@@ -82,40 +89,32 @@
         }
 
         .timer {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #ff4d6d;
             background: white;
             padding: 15px;
             border-radius: 10px;
-            display: inline-block;
+            display: block;
             margin-top: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* أزرار الصوت */
-        .audio-controls {
-            margin-top: 30px;
         }
 
         /* قلوب متطايرة */
         .heart {
             position: absolute;
             color: #ff4d6d;
-            font-size: 20px;
+            font-size: 24px;
             animation: float 4s linear infinite;
             opacity: 0;
-            bottom: 0;
+            bottom: -50px;
+            z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes float {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -123,11 +122,11 @@
 
     <!-- شاشة تسجيل الدخول -->
     <div id="login-screen">
-        <h2 style="color: #c9184a;">اكتب كلمة السر عشان تدخل لعالمنا يا عمر 💕</h2>
-        <input type="password" id="password-input" placeholder="كلمة السر هي السر...">
+        <h2 style="color: #c9184a; margin-bottom: 20px;">ادخل كلمة السر لعالمنا يا عمر 💕</h2>
+        <input type="password" id="password-input" placeholder="كلمة السر هي love...">
         <br>
         <button onclick="checkPassword()">دخول</button>
-        <p id="error-msg" style="color: red; display: none; margin-top: 10px;">أكيد نسيت الباسوورد يا عمر، ركز كدا! الباسوورد love</p>
+        <p id="error-msg" style="color: red; display: none; margin-top: 15px; font-weight: bold;">أكيد نسيت الباسوورد يا عمر! الباسوورد love</p>
     </div>
 
     <!-- محتوى الحب -->
@@ -135,28 +134,19 @@
         <h1>إلى أعز وأغلى ما أملك.. عمر 💕</h1>
         
         <div class="love-text">
-            "عمر.. عاوزه أقولك إنك أحلى حاجة حصلت في حياتي. من يوم ما دخلت دنيتي وكل حاجة بئت أجمل في عيني. ربنا يخليك ليا وسند دايماً وميحرمنيش من ضحكتك ولا من وجودك جنبي يا حبيب قلبي."
+            "عمر.. عاوزه أقولك إنك أحلى حاجة حصلت في حياتي. من يوم ما دخلت دنيتي وكل حاجة بقت أجمل في عيني. ربنا يخليك ليا وسند دايماً وميحرمنيش من ضحكتك ولا من وجودك جنبي يا حبيب قلبي."
         </div>
 
         <div class="love-text">
             <h3>الوقت اللي عديناه سوا من أول يوم اتكلمنا فيه:</h3>
-            <div id="counter" class="timer">بيحسب الأيام...</div>
-        </div>
-
-        <!-- ميديا وتحكم في الأغنية -->
-        <div class="audio-controls">
-            <audio id="love-song" loop>
-                <source src="https://st.tktkat.com/files/13119.mp3" type="audio/mpeg">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
-            <button onclick="toggleAudio()" id="music-btn">🎵 تشغيل الأغنية</button>
+            <div id="counter" class="timer">بيحسب الوقت...</div>
         </div>
     </div>
 
     <script>
-        // التأكد من الباسوورد
+        // التأكد من الباسوورد وتشغيل المحتوى
         function checkPassword() {
-            const input = document.getElementById('password-input').value;
+            const input = document.getElementById('password-input').value.trim();
             const errorMsg = document.getElementById('error-msg');
             
             if (input === 'love') {
@@ -165,45 +155,30 @@
                 
                 startHearts();
                 startTimer();
-                toggleAudio(); 
             } else {
                 errorMsg.style.display = 'block';
             }
         }
 
-        // تشغيل وإيقاف الأغنية
-        const song = document.getElementById('love-song');
-        const musicBtn = document.getElementById('music-btn');
-
-        function toggleAudio() {
-            if (song.paused) {
-                song.play().catch(e => console.log("المتصفح محتاج تفاعل عشان يشغل الصوت"));
-                musicBtn.innerHTML = "⏸️ إيقاف الأغنية";
-            } else {
-                song.pause();
-                musicBtn.innerHTML = "🎵 تشغيل الأغنية";
-            }
-        }
-
-        // عداد الوقت من يوم 18-5-2026
+        // عداد الوقت من يوم 18-5-2026 الحقيقي
         function startTimer() {
             const startDate = new Date('2026-05-18T00:00:00');
+            const counterDiv = document.getElementById('counter');
             
             function updateCounter() {
                 const now = new Date();
                 const difference = now - startDate;
-
-                if(difference < 0) {
-                    document.getElementById('counter').innerHTML = "الحكاية هتبدأ يوم 18-5-2026!";
-                    return;
-                }
 
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-                document.getElementById('counter').innerHTML = `${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+                if (difference < 0) {
+                    counterDiv.innerHTML = "الحكاية لسه هتبدأ يا عمر!";
+                } else {
+                    counterDiv.innerHTML = `${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+                }
             }
             
             updateCounter();
@@ -217,14 +192,15 @@
                 heart.classList.add('heart');
                 heart.innerHTML = '❤️';
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's'; 
                 document.body.appendChild(heart);
 
                 setTimeout(() => {
                     heart.remove();
                 }, 4000);
-            }, 300); // زودت سرعة القلوب عشان الأجواء تولع أكتر!
+            }, 400);
         }
     </script>
 </body>
 </html>
+
